@@ -23,12 +23,14 @@ All answers are generated **only from retrieved dialogues**, avoiding hallucinat
 
 ## 🧠 RAG Architecture
 
-- Dialogues are converted into **vector embeddings**
-- Embeddings are stored in **PostgreSQL using pgvector**
-- User questions are embedded in the same vector space
-- The most relevant dialogues (**Top-K**) are retrieved using vector similarity
-- A **Large Language Model (LLM)** generates a response based strictly on the retrieved context
-- The **sources used are displayed** for transparency
+The system follows a standard **Retrieval-Augmented Generation pipeline**:
+
+1. Dialogues are converted into **vector embeddings**
+2. Embeddings are stored in **PostgreSQL using pgvector**
+3. User questions are embedded in the same vector space
+4. The most relevant dialogues (**Top-K**) are retrieved using vector similarity
+5. A **Large Language Model (LLM)** generates a response strictly based on the retrieved context
+6. The **sources used** are displayed to ensure transparency and traceability
 
 ---
 
@@ -51,12 +53,15 @@ All answers are generated **only from retrieved dialogues**, avoiding hallucinat
 ```text
 rag_chatbot/
 │
-├── data/               # Dialogue corpus (.txt files)
-├── notebook/           # Prototyping and experiments
+├── assets/
+│   └── chatbot.png        # Screenshot of the Streamlit application
+│
+├── data/                  # Dialogue corpus (.txt files)
+├── notebook/              # Prototyping and experiments
 ├── src/
-│   ├── app.py          # Streamlit RAG application
-│   ├── ingest.py       # Data ingestion & embedding generation
-│   └── .env.example    # Environment variables template
+│   ├── app.py             # Streamlit RAG application
+│   ├── ingest.py          # Data ingestion & embedding generation
+│   └── .env.example       # Environment variables template
 │
 ├── requirements.txt
 └── README.md
@@ -134,3 +139,4 @@ This project uses exact vector search without indexing to ensure reliable retrie
 
 🎓 Academic Context
 This project was developed as part of an Artificial Intelligence course, demonstrating a complete and functional implementation of a RAG-based system using real conversational data.
+
