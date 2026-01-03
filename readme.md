@@ -65,10 +65,10 @@ rag_chatbot/
 │
 ├── requirements.txt
 └── README.md
-⚙️ Installation
-1. Create a virtual environment
-bash
-Copier le code
+## ⚙️ Installation
+
+### 1. Create a virtual environment
+```bash
 python -m venv venv
 venv\Scripts\activate   # Windows
 2. Install dependencies
@@ -139,4 +139,3 @@ This project uses exact vector search without indexing to ensure reliable retrie
 
 🎓 Academic Context
 This project was developed as part of an Artificial Intelligence course, demonstrating a complete and functional implementation of a RAG-based system using real conversational data.
-
