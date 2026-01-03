@@ -1,34 +1,93 @@
-HOW TO RUN THE PROJECT
-REQUIREMENTS
 
-Python 3.11 or higher
+💬 RAG Chatbot – Analysis of Telephone Dialogues
+
+This project implements a Retrieval-Augmented Generation (RAG) system to analyze and query real telephone dialogues between a hostess and clients.
+
+The system combines semantic search using vector embeddings with LLM-based response generation, ensuring factual, traceable, and context-aware answers.
+
+🚀 Project Overview
+
+The chatbot allows users to ask natural language questions about customer service conversations, such as:
+
+How a call is opened
+
+How customer requests are handled
+
+What communication best practices are used
+
+How calls are structured from start to end
+
+All answers are generated only from retrieved dialogues, avoiding hallucinations.
+
+🧠 RAG Architecture
+
+Dialogues are converted into vector embeddings
+
+Embeddings are stored in PostgreSQL using pgvector
+
+User questions are embedded in the same vector space
+
+The most relevant dialogues (Top-K) are retrieved using vector similarity
+
+A Large Language Model (LLM) generates a response based strictly on the retrieved context
+
+The sources used are displayed for transparency
+
+🛠️ Technologies Used
+
+Python 3.11+
 
 PostgreSQL 16
 
-pgvector extension enabled
+pgvector
 
-Groq API key
+sentence-transformers
 
-SETUP
+paraphrase-multilingual-MiniLM-L12-v2
 
-Create and activate a virtual environment
+Groq API (LLaMA 3.3 – 70B)
+
+Streamlit
+
+psycopg
+
+python-dotenv
+
+📁 Project Structure
+rag_chatbot/
+│
+├── data/               # Dialogue corpus (.txt files)
+├── notebook/           # Prototyping and experiments
+├── src/
+│   ├── app.py          # Streamlit RAG application
+│   ├── ingest.py       # Data ingestion & embedding generation
+│   └── .env.example    # Environment variables template
+│
+├── requirements.txt
+└── README.md
+
+⚙️ Installation
+1. Create a virtual environment
 python -m venv venv
-venv\Scripts\activate
+venv\Scripts\activate   # Windows
 
-Install Python dependencies
+2. Install dependencies
 pip install -r requirements.txt
 
-DATABASE CONFIGURATION
+🗄️ Database Setup
 
-Create the database
+Create the database:
+
 CREATE DATABASE rag_chatbot;
 
-Enable pgvector extension
+
+Enable pgvector:
+
 CREATE EXTENSION vector;
 
-ENVIRONMENT VARIABLES
+🔐 Environment Configuration
 
-Create a file src/.env (based on src/.env.example) and set:
+Create a file src/.env based on src/.env.example:
 
 DB_HOST=localhost
 DB_PORT=5432
@@ -39,26 +98,55 @@ DB_PASSWORD=YOUR_PASSWORD
 GROQ_API_KEY=YOUR_GROQ_API_KEY
 GROQ_MODEL=llama-3.3-70b-versatile
 
-DATA INGESTION
 
-Run the ingestion script to load dialogues and generate embeddings:
+⚠️ Never commit the .env file to GitHub.
+
+📥 Data Ingestion
+
+Before running the application, ingest the dialogue data:
 
 python src/ingest.py
 
-RUN THE APPLICATION
 
-Launch the Streamlit application:
+This step:
 
+Reads dialogue files from data/
+
+Generates embeddings (384 dimensions)
+
+Stores dialogues and embeddings in PostgreSQL
+
+▶️ Run the Application
 streamlit run src/app.py
+
 
 Open your browser at:
 
 http://localhost:8501
 
-NOTES
+💬 Example Questions
 
-The ingestion step must be executed before running the application
+How does the hostess greet a client on the phone?
 
-Do not commit the .env file to GitHub
+What are the best practices for telephone reception?
 
-For small datasets, no vector index is required
+How are customer requests handled?
+
+What are the typical stages of a phone call?
+
+⚠️ Technical Note (pgvector)
+
+For small datasets, using an ivfflat index with a high number of lists may return empty results.
+This project uses exact vector search without indexing to ensure reliable retrieval.
+
+🎓 Academic Context
+
+This project was developed as part of an Artificial Intelligence course, demonstrating a complete and functional implementation of a RAG-based system using real conversational data.
+
+✅ Project Status
+
+✔ Fully functional
+
+✔ Tested end-to-end
+
+✔ Ready for academic demonstration
