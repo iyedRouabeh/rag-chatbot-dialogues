@@ -1,4 +1,4 @@
-![RAG Chatbot Interface](assets/chatbot.png)
+![RAG Chatbot Interface](chatbot.png)
 
 # 💬 RAG Chatbot – Analysis of Telephone Dialogues
 
